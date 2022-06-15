@@ -1,0 +1,50 @@
+.article {
+  align-items: center;
+  border-radius: 5px;
+  display: flex;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.article:hover {
+  background: #eee;
+}
+
+.article:hover img {
+  transform: scale(1.15);
+}
+
+.article h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2e2d2d;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.article h2:hover {
+  color: #000000;
+}
+
+.article picture img {
+  width: 53px;
+  height: 53px;
+  margin-right: 24px;
+  object-fit: contain;
+  margin-left: 4px;
+  transition: transform .3s ease;
+  position: relative;
+}
+
+.content {
+  overflow: hidden;
+}
+
+.info {
+  color: #535353;
+  font-size: 12px;
+  padding: 5px 0;
+}

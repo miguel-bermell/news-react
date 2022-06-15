@@ -1,0 +1,31 @@
+.header {
+  margin-bottom: 32px;
+}
+
+.content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.content .logo {
+  width: auto;
+  transition: transform ease .3s;
+}
+
+.content .logo:hover {
+  transform: scale(1.1);
+}
+
+.content .nav {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav .nav-item {
+  text-decoration: none;
+}
