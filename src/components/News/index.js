@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom'
 import { normalizeDate } from '../../utils/utils'
 import styles from './styles.module.css'
 
-const News = ({ description, author, archiveDate, image, date }) => {
+const News = ({ id, description, author, archiveDate, image, date }) => {
 
-  const NO_IMAGE = 'https://images.assetsdelivery.com/compings_v2/pavelstasevich/pavelstasevich1811/pavelstasevich181101032.jpg'
+  const NO_IMAGE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'
 
   return (
-    <Link to={'/'} className={styles.article}>
+    <Link to={`/news/${id}`} className={styles.article}>
      <picture>
       <img src={image ?? NO_IMAGE} alt={author}></img>
      </picture>

@@ -1,15 +1,11 @@
 import { API_URL, ALL_NEWS_QUERY_PARAM } from './settings'
+import { loadAbort } from '../utils/utils'
 
-export default async function getAllNews(param = null) {
+export default function getAllNews(param = null) {
   let url = `${API_URL}/news`
-
+  const controller = loadAbort()
+  
   if (param) url = url.concat(`?${ALL_NEWS_QUERY_PARAM}=${param}`)
 
-  try {
-    const response = await fetch(url)
-    const { data } = await response.json()
-    return data
-  } catch (error) {
-    throw new Error(error)
-  }
+  return { call: fetch(url, { signal: controller.signal }).then(resp => resp.json()), controller };
 }

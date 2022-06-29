@@ -5,6 +5,11 @@
   max-width: 1200px;
 }
 
+.active {
+  border-bottom: 2px solid red;
+  font-weight: 500;
+}
+
 @media screen and (max-width: 991px) {
   .container {
     padding: 2rem;

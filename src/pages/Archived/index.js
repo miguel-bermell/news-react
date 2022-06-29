@@ -1,12 +1,11 @@
-import News from "../../components/News";
-import Spinner from "../../components/Spinner";
-import useNews from "../../hooks/useNews";
-import getAllNews from "../../services/allNews";
-import { NEWS_NOT_ARCHIVED } from "../../utils/constants";
+import useNews from "../../hooks/useNews"
+import getAllNews from "../../services/allNews"
+import Spinner from "../../components/Spinner"
+import News from "../../components/News"
+import { NEWS_ARCHIVED } from "../../utils/constants"
 
-export default function Home () {
-
-  const { loading, isSuccess, news, message } = useNews(() => getAllNews(NEWS_NOT_ARCHIVED))
+export default function Archived() {
+  const { loading, isSuccess, news, message } = useNews(() => getAllNews(NEWS_ARCHIVED))
   
   if (loading) return <Spinner />
   if (!isSuccess) return <h3>Ha ocurrido un error cargando las noticias: {message}</h3>
@@ -14,7 +13,7 @@ export default function Home () {
   return (
    <>
     {
-      news
+      news && news?.lenght
       ?
         news.map(({ id, description, author, archiveDate, image, date }) =>
            <News
@@ -26,9 +25,8 @@ export default function Home () {
               image={image}
               date={date} />
         )
-      : <h1>No hay noticias para mostrar</h1>
+      : <h1>No hay noticias archivadas para mostrar</h1>
     }
    </>
   )
-
 }

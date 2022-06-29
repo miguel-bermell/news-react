@@ -12,6 +12,8 @@
 .content .logo {
   width: auto;
   transition: transform ease .3s;
+  font-size: 30px;
+  text-decoration: none;
 }
 
 .content .logo:hover {

@@ -16,8 +16,9 @@ export default function useSingleNews(id) {
       }).catch(error => {
         setIsLoading(false)
         setIsSuccess(false)
+        console.error(error)
       })
   }, [id])
 
-  return {news, isLoading, isSuccess}
+  return { news, isLoading, isSuccess }
 }
