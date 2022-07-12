@@ -41,7 +41,7 @@ export default function NewsDetails({ news }) {
     <>
       <Header>
         <Picture>
-          <Img decoding="async" src={news?.image ?? NO_IMAGE} alt={news.title} />
+          <Img decoding="async" src={news?.image || NO_IMAGE} alt={news.title} />
         </Picture>
         <Info>
           <h1>{news.title}</h1>

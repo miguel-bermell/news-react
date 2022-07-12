@@ -6,3 +6,10 @@ export const loadAbort = () => {
   const controller = new AbortController()
   return controller
 }
+
+// Normalize data from redux store
+export const normalizeStoredData = (data) => ({
+  success: true,
+  data,
+  message: ''
+})

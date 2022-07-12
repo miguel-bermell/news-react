@@ -5,6 +5,7 @@ const useFetch = () => {
   let controller = null
 
   const callEndpoint = async (service) => {
+    if (!service.call) return service
     if (service.controller) controller = service.controller;
     setLoading(true)
     let result = {}

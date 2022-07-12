@@ -6,7 +6,7 @@ import getNewsById from "../../services/getNewsbyId";
 
 export default function Detail() {
   const { id } = useParams()
-  const { isSuccess, loading, news, message } = useNews(() => getNewsById(id)) 
+  const { isSuccess, loading, news , message } = useNews(() => getNewsById(id)) 
 
   if (loading) return <Spinner />
   if (!isSuccess) return <h3>Ha ocurrido un error cargando la noticia: <span style={{color: 'red'}}>{message}</span></h3>

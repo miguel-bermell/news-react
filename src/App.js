@@ -6,6 +6,7 @@ import {
   Routes
 } from "react-router-dom";
 import './App.css';
+import { ToasterNotify } from './services/notify';
 import Header from './components/Header';
 
 const Home = lazy(() => import('./pages/Home'))
@@ -26,6 +27,7 @@ function App() {
             </Routes>
           </Router>
         </Suspense>
+        <ToasterNotify />
       </main>
     </div>
   );
