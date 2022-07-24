@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import styled from "styled-components"
 import useFetch from "../../hooks/useFetch"
 import createNews from "../../services/createNews"
@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   content: '',
   author: '',
   image: '',
-  userId: '629c15039d04794dcf3b16ec'
+  userId: '629bd627cd41d17ffdeeb067'
 }
 
 const Form = styled.form`
@@ -65,12 +65,30 @@ const FormError = styled.p`
   font-size: 12px;
 `
 
+const FormFile = styled.div`
+  min-height: 35px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  input {
+    max-width: 230px;
+  }
+  img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+`
+
 export default function FormNews({ setNewsForm }) {
 
   const [news, setNews] = useState(INITIAL_STATE)
   const [errors, setErrors] = useState({})
   const [submited, isSubmited] = useState(false)
   const { callEndpoint, loading } = useFetch()
+
+  const filePreview = useRef()
 
   useEffect(() => {
     setErrors(validateForm(news))
@@ -84,12 +102,18 @@ export default function FormNews({ setNewsForm }) {
   }
 
   const handleChangeFiles = (e) => {
-    const file = e.target.files[0]
-    console.log(file)
     setNews({
       ...news,
       [e.target.name]: e.target.files[0]
     })
+
+    if (!e.target.files[0]) return
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      filePreview.current.src = e.target.result
+      filePreview.current.style.display = 'block'
+    }
+    reader.readAsDataURL(e.target.files[0])
   }
 
   const handleSubmit = async (e) => {
@@ -113,9 +137,15 @@ export default function FormNews({ setNewsForm }) {
 
     notifyService.success(message)
     setNewsForm(data)
-    setNews(INITIAL_STATE)
     isSubmited(false)
+    resetForm(e)
+  }
+
+  const resetForm = (e) => {
+    setNews(INITIAL_STATE)
     e.target.reset()
+    filePreview.current.style.display = 'none';
+    filePreview.current.src = '#';
   }
   
   const validateForm = (form) => {
@@ -147,7 +177,10 @@ export default function FormNews({ setNewsForm }) {
       <FormError>{submited && errors.content}</FormError>
       <Input onChange={handleChange} type="text" name="author" value={news.author} placeholder="Autor" />
       <FormError>{submited && errors.author}</FormError>
-      <input onChange={handleChangeFiles} type="file" name="image"  />
+      <FormFile>
+        <input onChange={handleChangeFiles} type="file" name="image"  />
+        <img style={{display: 'none'}} ref={filePreview} src="#" alt="preview" />
+      </FormFile>
       <Button disabled={loading}>Añadir noticia</Button>
     </Form>
   )

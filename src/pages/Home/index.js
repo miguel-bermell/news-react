@@ -8,12 +8,12 @@ import getAllNews from "../../services/allNews";
 import store from "../../store";
 import { NEWS_NOT_ARCHIVED } from "../../utils/constants";
 
-function Home ({ news: newsStorage, loadNews, likeToggled }) {
+function Home ({ news, likeToggled, deleteNews }) {
   const { dispatch } = store
   const { loading, isSuccess, message } = useNews(() => getAllNews(NEWS_NOT_ARCHIVED), dispatch.news.SET_NEWS)
 
   const handleNewsForm = (news) => {
-    dispatch.news.SET_NEW_NEWS(news)
+    dispatch.news.SET_NEWS(news)
   }
 
   if (loading) return <Spinner />
@@ -21,10 +21,11 @@ function Home ({ news: newsStorage, loadNews, likeToggled }) {
 
   return (
    <>
+   {console.log('render')}
     {
-      newsStorage && newsStorage?.length
+      news && news.length
       ?
-        newsStorage.map(({ id, description, author, archiveDate, image, date, liked }) =>
+        news.map(({ id, description, author, archiveDate, image, date, liked }) =>
            <News
               key={id}
               id={id}
@@ -34,6 +35,7 @@ function Home ({ news: newsStorage, loadNews, likeToggled }) {
               image={image}
               liked={liked}
               followToggled={likeToggled}
+              deleteNews={deleteNews}
               date={date} />
         )
       : <h1>No hay noticias para mostrar</h1>
@@ -50,6 +52,7 @@ const mapProps = (state) => ({
 const mapDispatch = (dispatch) => ({
   loadNews: dispatch.news.loadNews,
   likeToggled: dispatch.news.likeToggled,
+  deleteNews: dispatch.news.deleteNews
 })
 
 export default React.memo(connect(mapProps, mapDispatch)(Home))

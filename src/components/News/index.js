@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom'
 import { normalizeDate } from '../../utils/utils'
+import { Trash } from '../icons'
 import Like from '../Like'
 import styles from './styles.module.css'
 
-const News = ({ id, description, author, archiveDate, image, date, liked, followToggled }) => {
+const News = ({ id, description, author, deleteNews, image, date, liked, followToggled }) => {
 
   const NO_IMAGE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png'
-
+  const handleDelete = (e) => {
+    e.preventDefault()
+    deleteNews(id)
+  }
   return (
     <Link to={`/news/${id}`} className={styles.article}>
      <picture>
@@ -18,9 +22,9 @@ const News = ({ id, description, author, archiveDate, image, date, liked, follow
         <time dateTime={date}>{normalizeDate(date)}</time>
         <span> | <b>{author}</b> </span>
       </div>
+      <Trash onClick={handleDelete} width={20} />
      </div>
      <Like followToggled={() => followToggled({id})} liked={liked} />
-     {/* <button onClick={() => followToggled(id)}>sdsd</button> */}
     </Link>
   )
 }
